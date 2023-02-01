@@ -36,7 +36,7 @@
                                                 @isset($orders)
                                                     @foreach($orders->items as $order)
                                                         <tr>
-                                                            <td>{{$order ->products->name}}</td>
+                                                            <td>{{$order->products->name}}</td>
                                                             <td><img style="width: 100px; height: 100px;" src="{{ url('front/photos/product/'.$order->products->photo)}}" class="w-16 h-16 rounded"></td>
                                                             <td>{{$order -> quantity}}</td>
                                                             <td>${{$order -> price}}</td>

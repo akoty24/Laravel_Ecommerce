@@ -45,12 +45,12 @@
                                 <td>{{$order -> total_price}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{route('user.order.showDetails',$order->id)}}"
+                                        <a href="{{route('order.show.details',$order->id)}}"
                                            style="background-color: #0a53be; color: white"
                                            class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">show<i
                                                     class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                                         <hr>
-                                        <a href="{{route('user.ordersatuts.update',$order->id)}}"
+                                        <a href="{{route('order.update.satuts',$order->id)}}"
                                            style="background-color: #0a53be; color: white"
                                            class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">cancel</a>
                                     </div>

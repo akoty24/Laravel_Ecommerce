@@ -32,14 +32,14 @@ class SliderController extends Controller
         $Slider->price=$request->price;
         $Slider->link=$request->link;
         $Slider->save();
-        return redirect()->back()->with(['success' =>'added successfuly']);
+        return redirect()->back()->with(['success' =>' Slider added successfuly']);
 
     }
     public function edit($id){
         $Slider = Slider::selection()->find($id);
 
         if (!$Slider)
-            return redirect()->route('admin.slider')->with(['error' => 'this slider no found']);
+            return redirect()->route('admin.slider')->with(['error' => 'slider no found']);
 
         return view('admin.slider.edit', compact('Slider'));
 
@@ -68,7 +68,7 @@ class SliderController extends Controller
         $Slider->subdescription = $request->subdescription;
         $Slider->link = $request->link;
         $Slider->update();
-        return redirect()->route('admin.slider')->with(['success' => 'updated successfuly']);
+        return redirect()->route('admin.slider')->with(['success' => 'Slider updated successfuly']);
 
     }
     public function show($id){
@@ -80,7 +80,7 @@ class SliderController extends Controller
             $Slider = Slider::find($id);
             Storage::delete($Slider->photo);
             $Slider->delete();
-            return redirect()->route('admin.slider')->with(['success' => 'deleted successfuly']);
+            return redirect()->route('admin.slider')->with(['success' => 'Slider deleted successfuly']);
         } catch (\Exception $ex) {
             return redirect()->route('admin.slider')->with(['error' => 'error: try again']);
         }

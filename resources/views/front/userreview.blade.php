@@ -13,7 +13,7 @@
                                         <div class="wrap-review-form">
                                             <h3>Add Review For
                                                 <a class="link-to-product"
-                                                   href="{{route('detail_product',$order_item->products->id)}}">
+                                                   href="{{route('product.detail',$order_item->products->id)}}">
                                                     <span style="color:red;"> {{$order_item->products->name}}</span>
                                                 </a>
                                             </h3><br>
@@ -32,7 +32,7 @@
                                                             <div class="comment-text">
                                                                 <p class="meta">
                                                                     <a class="link-to-product"
-                                                                       href="{{route('detail_product',$order_item->products->id)}}">
+                                                                       href="{{route('product.detail',$order_item->products->id)}}">
 
                                                                         <strong class="woocommerce-review__author">{{$order_item->products->name}}</strong>
                                                                     </a>
@@ -54,7 +54,7 @@
                                                 <div id="review_form">
                                                     <div id="respond" class="comment-respond">
 
-                                                        <form action="{{route('storereview')}}" method="POST"
+                                                        <form action="{{route('submit.review')}}" method="POST"
                                                               id="commentform" class="comment-form" novalidate="">
                                                             @csrf
                                                             <input type="hidden" name="product_id"

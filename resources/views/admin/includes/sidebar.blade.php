@@ -95,8 +95,7 @@
                 <ul class="menu-content">
                     <li class="active"><a class="menu-item" href="{{route('admin.message')}}" data-i18n="nav.dash.ecommerce"> Messages </a>
                     </li>
-                    <li> <a class="menu-item" href="{{route('admin.message.add')}}" data-i18n="nav.dash.crypto">Add Message</a>
-                    </li>
+
                 </ul>
             </li>
 

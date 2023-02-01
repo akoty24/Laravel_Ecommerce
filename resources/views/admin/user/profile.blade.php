@@ -90,33 +90,17 @@
                         <h5 class="my-3">{{$user->name}}</h5>
                         <p class="text-muted mb-1">Full Stack Developer</p>
                         <p class="text-muted mb-4">{{$user->address}}</p>
+                        <div class="form-group">
+                            <label>Add Image </label><br>
+                            <label id="projectinput7" class="file center-block">
+                                <input type="file" id="file" name="photo">
+                                <span class="file-custom"></span>
+                            </label>
+                            @error('photo')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
 
-                    </div>
-                </div>
-                <div class="card mb-4 mb-lg-0">
-                    <div class="card-body p-0">
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fas fa-globe fa-lg text-warning"></i>
-                                <p class="mb-0">https://mdbootstrap.com</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                                <p class="mb-0">@mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -172,7 +156,7 @@
                         <hr>
 <br><br>
                         <div class="text-center">
-                          <a class="btn btn-primary " style="font-size: 12px;" href="{{route('editprofile',$user->id)}}" >edit informayion</a>
+                          <a class="btn btn-primary " style="font-size: 12px;" href="{{route('edit.profile',$user->id)}}" >edit informayion</a>
                         </div>
 
                     </div>

@@ -17,7 +17,7 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class CheckoutController extends Controller
 {
-    public function check(){
+    public function checkout(){
     $oldcartitem=Cart::where('user_id',Auth::id())->get();
     foreach ($oldcartitem as $item){
         if (!Product::where('id',$item->product_id)->where('quantity','>=',$item->quantity)->exists())
@@ -29,7 +29,7 @@ class CheckoutController extends Controller
      $cartitems=Cart::where('user_id',Auth::id())->get();
         return view('front.check',compact('cartitems'));
     }
-    public function checkout( OrderRequest $request){
+    public function place_order( OrderRequest $request){
 
      $orders=new Order();
         $orders->fname=$request->input('fname');
@@ -139,10 +139,9 @@ class CheckoutController extends Controller
 
         $cartitems=Cart::where('user_id',Auth::id())->get();
         Cart::destroy($cartitems);
-        return redirect()->route('index')->with(['alert' => 'order placed successfuly']);
+        return redirect()->route('index')->with(['success' => 'order placed successfuly']);
 
     }
-
 
     public function paypalprocess(Request $request)
     {

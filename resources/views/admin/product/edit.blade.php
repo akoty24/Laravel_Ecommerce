@@ -9,7 +9,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admindashboard')}}">Main </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Main </a>
                                 </li>
                                 <li class="breadcrumb-item"><a href="{{route('admin.product')}}"> Products </a>
                                 </li>
@@ -83,21 +83,7 @@
                                                     </div>
                                                 </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1"> edit slug</label>
-                                                            <input type="text" id="name"
-                                                                   class="form-control"
-                                                                   placeholder="  "
-                                                                   value="{{$Products -> slug}}"
-                                                                   name="slug">
-                                                            @error("slug")
-                                                            <span class="text-danger"> This Field  Is Required</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                                 <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">

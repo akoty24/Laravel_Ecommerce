@@ -25,14 +25,14 @@
 							<ul class="products-cart product-data">
 								<li class="pr-cart-item">
 									<div class="product-image">
-										<a class="link-to-product" href="{{route('detail_product',$item->product_id)}}">
+										<a class="link-to-product" href="{{route('product.detail',$item->product_id)}}">
 										<figure >
 											<img style="width: 50%;" src="{{url('front/photos/product/'.$item->products->photo)}}" alt="{{$item->products->name}}">
 										</figure>
 										</a>
 									</div>
 									<div class="product-name"  style="text-align: center">
-										<a class="link-to-product" href="{{route('detail_product',$item->product_id)}}">
+										<a class="link-to-product" href="{{route('product.detail',$item->product_id)}}">
 											<h3 class="box-title" style="text-align: center">Product Name</h3>
 											<span style="text-align: center">{{$item->products->name}}</span>
 										</a>
@@ -52,6 +52,11 @@
                                          $total += $sub;
 									@endphp
 										@else
+
+											<label for="Quantity" style="font-size: 14px;">Quantity</label>
+											<div class="input-group text-center mb-3" style="width: 90px">
+												<input  style="margin-left: 65%" type="number" min="1" name="quantity" class="form-control change-quantity qty-input text-center" id="qty-input" value="{{$item->quantity}}" >
+											</div>
 											<h2>out of stock</h2>
 										@endif
 									</div>
@@ -59,7 +64,7 @@
 											<p class="price"><h3 class="box-title" style="text-align: center">Sub Price</h3>${{$sub}}</p>
 										</div>
 									<div class="delete">
-										<a href="{{route('removecart',$item->product_id)}}"
+										<a href="{{route('remove.from.cart',$item->product_id)}}"
 										   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"> <i
 													class="fa fa-times-circle"></i></a>
 									</div>
@@ -75,7 +80,7 @@
 								</p>
 							</div>
 							<div class="checkout-info">
-								<a class="btn btn-checkout" href="{{route('check')}}">Check out</a>
+								<a class="btn btn-checkout" href="{{route('checkout')}}">Check out</a>
 								<a class="link-to-shop" href="{{route('shop')}}">Continue Shopping<i
 											class="fa fa-arrow-circle-right" aria-hidden="true"></i>
 								</a>
@@ -102,41 +107,44 @@
 @endsection
 @section('custom-js')
 	<script>
-		loadCart();
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		$(document).ready(function () {
+			loadCart();
+			$.ajaxSetup({
+				headers: {
+					"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+				},
+			});
+			function loadCart() {
+				$.ajax({
+					method: "GET",
+					url: "/load-cart-data",
+					success: function (response) {
+						$(".cart-count").html("");
+						$(".cart-count").html(response.count);
+					},
+				});
 			}
-		});
-		function loadCart() {
-			$.ajax({
-				method: "GET",
-				url: "/load-cart-data",
-				success: function (response) {
-					$(".cart-count").html("");
-					$(".cart-count").html(response.count);
-				},
-			});
-		}
-		// $(".change-quantity").change(function (e) {
-		$(document).on("change", ".change-quantity", function (e) {
-			e.preventDefault();
-			var product_id = $(this).closest(".product-data").find(".product_id").val();
-			var quantity = $(this).closest(".product-data").find(".qty-input").val();
-			$.ajax({
-				method: "POST",
-				url: "/update_cart_item",
-				data: {
-					product_id: product_id,
-					quantity: quantity,
-				},
-				success: function (response) {
-					// window.location.reload();
-					$(".cart-items").load(location.href + ".cart-items");
-					// Swal.fire(response.status);
-				},
-			});
-		});
+			$(document).on("change", ".change-quantity", function (e) {
+				e.preventDefault();
 
+				var prod_id = $(this).closest(".product-data").find(".product_id").val();
+				var qty = $(this).closest(".product-data").find(".qty-input").val();
+
+				$.ajax({
+					method: "POST",
+					url: "update-cart-item",
+					data: {
+						prod_id: prod_id,
+						product_qty: qty,
+					},
+					success: function (response) {
+						// window.location.reload();
+						$(".cart-items").load(location.href + " .cart-items");
+						// Swal.fire(response.status);
+					},
+				});
+			});
+
+		});
 	</script>
 @endsection

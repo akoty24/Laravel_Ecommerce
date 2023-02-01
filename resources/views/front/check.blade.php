@@ -20,7 +20,7 @@
             <div class=" main-content-area">
                 <div class="wrap-address-billing">
                     <h3 class="box-title">Billing Address</h3>
-                    <form action="{{route('checkout')}}" method="POST" name="frm-billing">
+                    <form action="{{route('place.order')}}" method="POST" name="frm-billing">
                         @csrf
                         <input type="hidden" id="_token" value="{{ csrf_token() }}">
                         <p class="row-in-form">
@@ -140,7 +140,7 @@
                                     <hr>
                                     <div id="paypal-button-container"></div>
                                 @else
-                                    <a href="{{route('showcart')}}" type="button" class="btn btn-success w-100" style="background-color: darkgreen">Place order now</a>
+                                    <a href="{{route('show.cart')}}" type="button" class="btn btn-success w-100" style="background-color: darkgreen">Place order now</a>
                                 @endif
                             </div>
                             <div class="summary-item shipping-method">
@@ -167,7 +167,7 @@
                                                 </th>
                                                 <td>
                                                     <a class="link-to-product"
-                                                       href="{{route('detail_product',$item->product_id)}}">{{$item->products->name}}</a>
+                                                       href="{{route('product.detail',$item->product_id)}}">{{$item->products->name}}</a>
                                                 </td>
                                                 <td>
                                                     <p class="price">${{$item->products->price}}</p>
@@ -186,7 +186,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="text"><a
-                                                                href="{{route('removecart',$item->product_id)}}"><i
+                                                                href="{{route('remove.from.cart',$item->product_id)}}"><i
                                                                     class="fa fa-times-circle"></i></a></div>
 
                                                 </td>
@@ -234,8 +234,41 @@
                     // const element = document.getElementById('paypal-button-container');
                     // element.innerHTML = '<h3>Thank you for your payment!</h3>';
                     // Or go to another URL:  actions.redirect('thank_you.html');
-                });
-            }
+                    var fname = $('fname').val();
+                    var lname = $('lname').val();
+                    var email = $('email').val();
+                    var phone = $('phone').val();
+                    var address = $('address').val();
+                    var address2 = $('address2').val();
+                    var city = $('city').val();
+                    var country = $('country').val();
+                    var pincode = $('pincode').val();
+                    $.ajax({
+                        method:"POST",
+                        url:"/place_order",
+                        data:{
+                            'fname':fname,
+                            'lname':lname,
+                            'email':email,
+                            'phone':phone,
+                            'address':address,
+                            'address2':address2,
+                            'city':city,
+                            'country':country,
+                            'pincode':pincode,
+                            'payment_mode':"paid by paypal",
+                },
+                        success:function (response){
+                            swal(response.status);
+                            window.location.href="/user_order";
+                        }
+                    })
+                    paymentSubmitted(true, 'paypal');
+                })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            },
         }).render('#paypal-button-container');
     </script>
 @endsection

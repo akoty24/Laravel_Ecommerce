@@ -3,17 +3,26 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $Products = Product::all();
+    public function index(Request $request){
+     if ($request->max_price && $request->min_price) {
+            $max = $request->max_price;
+            $min = $request->min_price;
+            if ($max >= $min) {
+                $Products = Product::whereBetween('price', [$min, $max])->get();
+            } else {
+                $Products = Product::latest()->get();
+            }
+        }
+        else {
+            $Products = Product::latest()->get();
+        }
         return view('admin.product.index', compact('Products'));
     }
     public function create(){
@@ -29,7 +38,6 @@ class ProductController extends Controller
             $Products['photo'] = $image;
         }
         $Products->name=$request->name;
-        $Products->slug=$request->slug;
         $Products->price=$request->price;
         $Products->quantity=$request->quantity;
         $Products->description=$request->description;
@@ -66,7 +74,6 @@ class ProductController extends Controller
             $Products->photo = $filename;
         }
         $Products->name = $request->name;
-        $Products->slug = $request->slug;
         $Products->active = $request->active;
         $Products->Category_id = $request->Category_id;
         $Products->price = $request->price;

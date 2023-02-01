@@ -11,33 +11,30 @@ use App\Http\Controllers\Admin\Team_MemberController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\front\CartController;
 use App\Http\Controllers\front\CheckoutController;
-use App\Http\Controllers\front\profileController;
-use App\Http\Controllers\front\ReviewController;
+use App\Http\Controllers\front\FrontendController;
 use App\Http\Controllers\front\WishlistController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/home',[IndexController::class,'home'])->name('home');
+Route::get('/search',[FrontendController::class,'search'])->name('search');
+Route::get('/shop', [FrontendController::class,'shop'])->name('shop');
+Route::get('product_detail/{category_id}',[FrontendController::class,'product_detail'])->name('product.detail');
+Route::get('/about', [FrontendController::class,'about_us'])->name('about');
+Route::get('/contact', [FrontendController::class,'contact_us'])->name('contact');
 
 
-//search
-Route::get('search',[IndexController::class,'search'])->name('search');
-
-//    $products=\App\Models\Product::where('name','like','%'.request('search').'%' )->get();
-
-
-//auth for admin and user routes
-Route::get('login',[LoginController::class,'getLogin'])->name('registerandlogin');
-Route::post('login',[LoginController::class,'Login'])->name('login');
-Route::post('register',[RegisterController::class, 'Register'])->name('register');
-Route::get('logout',[RegisterController::class,'logout'])->name('logout');
-
-
-
-
-//admin
+ // Auth For Admin And User Routes
+Route::group(['prefix' => 'Auth'], function (){
+    Route::get('login',[LoginController::class,'Login_and_register_page'])->name('register.and.login');
+    Route::post('login',[LoginController::class,'Login'])->name('login');
+    Route::post('register',[RegisterController::class, 'Register'])->name('register');
+    Route::get('logout',[RegisterController::class,'logout'])->name('logout');
+});
+// Admin Routes
 Route::middleware(['auth','auth.admin'])->group(callback: function () {
-    Route::get('admindashboard',[IndexController::class,'AdminDashboard'])->name('admindashboard');
-
+//dashboard
+Route::get('admin_dashboard',[IndexController::class,'Admin_Dashboard'])->name('admin.dashboard');
 //slider
 Route::group(['prefix' => 'slider'], function () {
     Route::get('/',[SliderController::class,'index'])->name('admin.slider');
@@ -50,7 +47,7 @@ Route::group(['prefix' => 'slider'], function () {
 
 });
 //banner
-    Route::group(['prefix' => 'banner'], function () {
+Route::group(['prefix' => 'banner'], function () {
         Route::get('/',[BannerController::class,'index'])->name('admin.banner');
         Route::get('create',[BannerController::class,'create'])->name('admin.banner.create');
         Route::post('store',[BannerController::class,'store'])->name('admin.banner.store');
@@ -83,6 +80,19 @@ Route::group(['prefix' => 'product'], function () {
     Route::get('status/{id}',[ProductController::class,'status'])->name('admin.product.status');
 
 });
+//Review
+Route::group(['prefix' => 'review'], function () {
+    Route::get('/',[\App\Http\Controllers\Admin\ReviewController::class,'index'])->name('admin.review');
+    Route::get('show/{id}',[\App\Http\Controllers\Admin\ReviewController::class,'show'])->name('admin.review.show');
+    Route::get('delete/{id}',[\App\Http\Controllers\Admin\ReviewController::class,'delete'])->name('admin.review.delete');
+    });
+//order
+Route::group(['prefix' => 'order'], function () {
+        Route::get('/',[OrderController::class,'index'])->name('admin.order');
+        Route::get('show/{id}',[OrderController::class,'show'])->name('admin.order.show');
+        Route::get('delete/{id}',[OrderController::class,'delete'])->name('admin.order.delete');
+        Route::get('downloadInvoice/{id}',[OrderController::class,'downloadInvoice'])->name('admin.order.download');
+    });
 //user
 Route::group(['prefix' => 'user'], function () {
     Route::get('/',[UserController::class,'index'])->name('admin.user');
@@ -104,94 +114,59 @@ Route::group(['prefix' => 'team_member'], function () {
     Route::get('show/{id}',[Team_MemberController::class,'show'])->name('admin.team_member.show');
     Route::get('delete/{id}',[Team_MemberController::class,'delete'])->name('admin.team_member.delete');
     });
-
-    Route::group(['prefix' => 'message'], function () {
+//messages
+Route::group(['prefix' => 'message'], function () {
         Route::get('/',[MessageController::class,'index'])->name('admin.message');
         Route::get('show/{id}',[MessageController::class,'show'])->name('admin.message.show');
         Route::get('delete/{id}',[MessageController::class,'delete'])->name('admin.message.delete');
-        Route::get('add',[MessageController::class,'add'])->name('admin.message.add');
 
     });
 });
-//messages
-
-//order
-Route::group(['prefix' => 'order'], function () {
-    Route::get('/',[OrderController::class,'index'])->name('admin.order');
-    Route::get('show/{id}',[OrderController::class,'show'])->name('admin.order.show');
-    Route::get('delete/{id}',[OrderController::class,'delete'])->name('admin.order.delete');
-    Route::get('downloadInvoice/{id}',[OrderController::class,'downloadInvoice'])->name('admin.order.download');
-    //user_order
-    Route::get('/userorder',[IndexController::class,'myorder'])->name('user.order');
-    Route::get('/showorderdetails/{id}',[IndexController::class,'showorderdetails'])->name('user.order.showDetails');
-    Route::get('updatestatus/{id}',[OrderController::class,'updatestatus'])->name('user.ordersatuts.update');
-
-});
-//Review
-Route::group(['prefix' => 'review'], function () {
-    Route::get('/',[ReviewController::class,'index'])->name('admin.review');
-    Route::get('show/{id}',[ReviewController::class,'show'])->name('admin.review.show');
-    Route::get('delete/{id}',[ReviewController::class,'delete'])->name('admin.review.delete');
-
-    Route::get('/addreview/{id}',[ReviewController::class,'addreview'])->name('user.review');
-    Route::post('/storereview',[ReviewController::class,'storereview'])->name('storereview');
-
-});
-
-//front
-//index page website
-
-
-//-------------------------------------
-
+// User Routes
 Route::middleware(['auth'])->group(function () {
-    //--profile
-    Route::get('profile', [profileController::class,'profile'])->name('profile');
-    Route::get('/editprofile/{id}',[profileController::class,'editprofile'])->name('editprofile');
-    Route::post('/updateprofile/{id}', [profileController::class,'updateprofile'])->name('updateprofile');
+    //index
+    Route::get('/', [FrontendController::class,'index'])->name('index');
+    //profile
+    Route::group(['prefix' => 'profile'], function (){
+        Route::get('/profile', [IndexController::class,'profile'])->name('profile');
+        Route::get('/edit_profile/{id}',[IndexController::class,'edit_profile'])->name('edit.profile');
+        Route::post('/update_profile/{id}', [IndexController::class,'update_profile'])->name('update.profile');
+    });
+    //whishlist
+    Route::group(['prefix' => 'wishlist'], function (){
+        Route::post('add_to_wishlist/{id}', [WishlistController::class,'add_to_wishlist'])->name('add.to.wishlist');
+        Route::get('show_wishlist', [WishlistController::class,'show_wishlist'])->name('show.wishlist');
+        Route::get('remove_from_wishlist/{id}', [WishlistController::class,'remove_from_wishlist'])->name('remove.from.wishlist');
+    });
+    //cart
+    Route::group(['prefix' => 'cart'], function (){
+        Route::post('/add_to_cart/{id}', [CartController::class,'add_to_cart'])->name('add.to.cart');
+        Route::get('/show_cart', [CartController::class,'show_cart'])->name('show.cart');
+        Route::get('/remove_from_cartitem/{id}', [CartController::class,'remove_from_cart'])->name('remove.from.cart');
+        Route::post('/update-cart-item', [CartController::class,'updateProduct'])->name('update.cart');
+        Route::get('/load-cart-data', [CartController::class, 'cartCount']);
+    });
+    //checkout
+    Route::group(['prefix' => 'checkout'], function (){
+        Route::get('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
+        Route::post('/place_order', [CheckoutController::class,'place_order'])->name('place.order');
+        // Route::get('/paypalprocess', [CheckoutController::class,'paypalprocess'])->name('paypalprocess');
+        // Route::get('/cancel', [CheckoutController::class,'cancel'])->name('cancel');
+        // Route::get('/success', [CheckoutController::class,'success'])->name('success');
+    });
+    //order
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/user_order',[FrontendController::class,'user_orders'])->name('user.order');
+        Route::get('/order_show_details/{id}',[FrontendController::class,'show_order_details'])->name('order.show.details');
+        Route::get('/order_update_status/{id}',[FrontendController::class,'update_order_status'])->name('order.update.satuts');
 
-
-    Route::get('/', [\App\Http\Controllers\IndexController::class,'index'])->name('index');
-    Route::get('/shop', [\App\Http\Controllers\front\ShopController::class,'shop'])->name('shop');
-    Route::get('/about', [\App\Http\Controllers\front\FrontendController::class,'about'])->name('about');
-    Route::get('/list', [\App\Http\Controllers\front\ShopController::class,'list'])->name('list');
-    Route::get('detail_product/{category_id}',[IndexController::class,'detail_product'])->name('detail_product');
-
-
-
-    //--whishlist--------------------------------------
-    Route::post('addtowishlist/{id}', [WishlistController::class,'addtowishlist'])->name('addtowishlist');
-    Route::get('showwishlist', [WishlistController::class,'showwishlist'])->name('showwishlist');
-    Route::get('removewishlist/{id}', [WishlistController::class,'removewishlist'])->name('removewishlist');
-
-    //--cart--------------------------------
-    Route::post('addtocart/{id}', [CartController::class,'addtocart'])->name('addtocart');
-    Route::get('cart', [CartController::class,'showcart'])->name('showcart');
-    Route::get('removecartitem/{id}', [CartController::class,'removefromcart'])->name('removecart');
-    Route::post('/update_cart_item', [CartController::class,'updatecart'])->name('updatecart');
-    Route::get('load-cart-data', [CartController::class, 'cartCount']);
-
-
-    //--checkout---------------------------------
-    Route::get('/check', [CheckoutController::class,'check'])->name('check');
-    Route::post('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
-    Route::post('/razorpay', [CheckoutController::class,'razorpay'])->name('razorpay');
-
-    Route::get('/paypalprocess', [CheckoutController::class,'paypalprocess'])->name('paypalprocess');
-    Route::get('/cancel', [CheckoutController::class,'cancel'])->name('cancel');
-    Route::get('/success', [CheckoutController::class,'success'])->name('success');
-
-
-
-
-
+    });
+    //Review
+    Route::group(['prefix' => 'review'], function () {
+        Route::get('/add_review/{id}',[FrontendController::class,'add_review'])->name('user.review');
+        Route::post('/store_review',[FrontendController::class,'submit_review'])->name('submit.review');
+    });
+    //submit_contact_form
+    Route::post('/send_contact_form', [FrontendController::class,'submit_contact_form'])->name('send.contact.form');
 });
-
-Route::get('/contact', [\App\Http\Controllers\front\Contact_usController::class,'contact_us'])->name('contact');
-Route::post('/send_contact_form', [\App\Http\Controllers\front\Contact_usController::class,'submit_contact_form'])->name('send_contact_form');
-
-Route::get('/privacy-policy', [IndexController::class,'privacy_policy'])->name('privacy-policy');
-Route::get('/terms-conditions', [IndexController::class,'terms_conditions'])->name('terms-conditions');
-Route::get('/return-policy', [IndexController::class,'return_policy'])->name('return-policy');
-Route::get('home',[IndexController::class,'home'])->name('home');
 

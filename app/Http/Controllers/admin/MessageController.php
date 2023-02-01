@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class MessageController extends Controller
 {
-    public function add(){
-        return view('admin.message.add');
-    }
+
     public function index(){
         $messages = Message::all();
         return view('admin.message.index', compact('messages'));

@@ -90,52 +90,28 @@
                         <p class="text-muted mb-1">Full Stack Developer</p>
                         <p class="text-muted mb-4">{{$user->address}}</p>
 
+                        <div class="form-group">
+                            <label>Edit Image </label><br>
+                            <label id="projectinput7" class="file center-block">
+                                <input type="file" id="file" name="photo">
+                                <span class="file-custom"></span>
+                            </label>
+                            @error('photo')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
-                <div class="card mb-4 mb-lg-0">
-                    <div class="card-body p-0">
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fas fa-globe fa-lg text-warning"></i>
-                                <p class="mb-0">https://mdbootstrap.com</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                                <p class="mb-0">@mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
             <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-body">
 
-                        <form action="{{route('updateprofile',$user->id)}}" method="POST" >
+                        <form action="{{route('update.profile',$user->id)}}" method="POST" >
                             @csrf
                             <br>
-                            <div class="form-group">
-                                <label> photo </label>
-                                <label id="projectinput7" class="file center-block">
-                                    <input type="file" id="photo" name="photo">
-                                    <span class="file-custom"></span>
-                                </label>
-                                @error('photo')
-                                <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
+
                             <div class="form-group">
                                 <label for="title">Firs Name </label>
                                 <input type="text"  name="name" class="form-control" value="{{$user->name}}" >

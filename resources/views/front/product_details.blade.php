@@ -33,6 +33,7 @@
                                 <span style="font-size: 20px">Category</span>
                                 <span style="color:darkgrey">{{$products->category->name}}</span>
                                 <br>
+                                <span style="color:darkgrey">{{$products->description}}</span>
                             </div>
                             <style>
                                 .color-gray {
@@ -65,11 +66,12 @@
                                 @else
                                     <span class="text-danger">no review</span>
                                 @endif
-                            </div>
+                            </div><br>
 
-                            {{--                        <div class="wrap-social">
-                                                        <a class="link-socail" href="#"><img src="{{asset('assets/images/social-list.png')}}" alt="{{$products->name}}"></a>
-                                                    </div>--}}
+
+{{--                                                    <div class="wrap-social">--}}
+{{--                                                        <a class="link-socail" href="#"><img src="{{asset('assets/images/social-list.png')}}" alt="{{$products->name}}"></a>--}}
+{{--                                                    </div>--}}
                             <div class="wrap-price"><span class="product-price"
                                                           style="color: red">${{$products->price}}</span></div>
                             <div class="stock-info in-stock">
@@ -77,7 +79,7 @@
                             </div>
                             <div class="wrap-butons">
 
-                                <form action="{{route('addtocart',$products->id)}}" method="POST">
+                                <form action="{{route('add.to.cart',$products->id)}}" method="POST">
                                     @csrf
                                     @if($products->quantity>1)
                                         <div class="quantity">
@@ -96,7 +98,7 @@
                                     {{--				<a href="" class="btn add-to-cart"  type="submit">Add To Cart</a>--}}
                                 </form>
 
-                                <form action="{{route('addtowishlist',$products->id)}}" method="POST">
+                                <form action="{{route('add.to.wishlist',$products->id)}}" method="POST">
                                     @csrf
                                     <input href="" class="btn add-to-cart" value="add to wishlist" type="submit">
                                 </form>
@@ -191,7 +193,7 @@
                                     <li class="product-item">
                                         <div class="product product-widget-style">
                                             <div class="thumbnnail">
-                                                <a href="{{route('detail_product',$popular_product->id)}}"
+                                                <a href="{{route('product.detail',$popular_product->id)}}"
                                                    title="{{$popular_product->name}}">
                                                     <figure><img
                                                                 src="{{url('front/photos/product/'.$popular_product->photo)}}"
@@ -199,12 +201,12 @@
                                                 </a>
                                             </div>
                                             <div class="product-info">
-                                                <a href="{{route('detail_product',$popular_product->id)}}"
+                                                <a href="{{route('product.detail',$popular_product->id)}}"
                                                    class="product-name"><span>{{$popular_product->description}}</span></a>
-                                                @if(App\models\Review::where('product_id',$products->id)->first())
+                                                @if(App\models\Review::where('product_id',$popular_product->id)->first())
                                                     @php
-                                                        $reviews=App\models\Review::where('product_id',$products->id)->get();
-                                                        $rating=App\models\Review::where('product_id',$products->id)->avg('rating');
+                                                        $reviews=App\models\Review::where('product_id',$popular_product->id)->get();
+                                                        $rating=App\models\Review::where('product_id',$popular_product->id)->avg('rating');
                                                         $avgrating=number_format($rating,1);
                                                     @endphp
                                                     @for($i=1; $i<=5; $i++)
@@ -252,7 +254,7 @@
                                 @foreach($related_products as $related_product)
                                     <div class="product product-style-2 equal-elem ">
                                         <div class="product-thumnail">
-                                            <a href="{{route('detail_product',$related_product->id)}}"
+                                            <a href="{{route('product.detail',$related_product->id)}}"
                                                title="{{$related_product->name}}">
                                                 <figure><img
                                                             src="{{url('front/photos/product/'.$related_product->photo)}}"
@@ -265,12 +267,43 @@
                                         </div>
 
                                         <div class="product-info">
-                                            <a href="{{route('detail_product',$related_product->id)}}"
-                                               class="product-name"><span>{{$related_product->name}}</span></a>
+                                            <a href="{{route('product.detail',$related_product->id)}}"
+                                               class="product-name"><span>{{$related_product->name}}</span>
+                                            </a>
+                                            @if(App\models\Review::where('product_id',$related_product->id)->first())
+                                                @php
+                                                    $reviews=App\models\Review::where('product_id',$related_product->id)->get();
+                                                    $rating=App\models\Review::where('product_id',$related_product->id)->avg('rating');
+                                                    $avgrating=number_format($rating,1);
+                                                @endphp
+                                                @for($i=1; $i<=5; $i++)
+                                                    @if($i<=$avgrating)
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                    @else
+                                                        <i class="fa fa-star color-gray"></i>
+                                                    @endif
+                                                @endfor
+                                            @else
+                                                <i class="fa fa-star color-gray"></i>
+                                                <i class="fa fa-star color-gray"></i>
+                                                <i class="fa fa-star color-gray"></i>
+                                                <i class="fa fa-star color-gray"></i>
+                                                <i class="fa fa-star color-gray"></i>
+                                            @endif
+                                            <div class="product-rating">
+                                                @if($reviews->count()>0)
+                                                    <a href="#review" class="count-review">. {{$reviews->count()}}
+                                                        review(s)</a>
+                                                @else
+                                                    <span class="text-danger">no review</span>
+                                                @endif
+                                            </div>
 
                                             <div class="wrap-price"><span
                                                         class="product-price">${{$related_product->price}}</span></div>
+                                            <div class="product-name" style="color: gray"><span style="color: gray">{{$related_product->description}}</span></div>
                                         </div>
+
                                     </div>
                                 @endforeach
                             </div>

@@ -60,6 +60,8 @@
         }
         .text-end {
             text-align: right;
+            color: white;
+            background: gray;
         }
         .text-center {
             text-align: center;
@@ -84,7 +86,7 @@
 <table class="order-details">
     <thead>
     <tr>
-        <th width="50%" colspan="2">
+        <th width="50%" colspan="2" style="background: gray; color: white">
             <h2 class="text-start">Funda Ecommerce</h2>
         </th>
         <th width="50%" colspan="2" class="text-end company-data">
@@ -105,37 +107,39 @@
         <td>Order Id:</td>
         <td>{{$orders -> id}}</td>
 
-        <td>First Name:</td>
-        <td>{{$orders -> fname}}</td>
+        <td>Full Name:</td>
+        <td>{{$orders -> fname}} {{$orders -> lname}}</td>
     </tr>
     <tr>
         <td>Payment Mode:</td>
         <td>{{$orders -> payment_mode}}</td>
 
-        <td>Last Name:</td>
-        <td>{{$orders -> lname}}</td>
+        <td>Email </td>
+        <td>{{$orders -> email}}</td>
+
 
     </tr>
     <tr>
         <td>Order Date:</td>
         <td>{{$orders -> created_at}}</td>
 
-        <td>Email </td>
-        <td>{{$orders -> email}}</td>
+        <td>Phone:</td>
+        <td>{{$orders -> phone}}</td>
     </tr>
     <tr>
         <td>Order Status:</td>
         <td>{{$orders -> status()}}</td>
 
-        <td>Phone:</td>
-        <td>{{$orders -> phone}}</td>
+        <td>Address:</td>
+        <td>{{$orders -> address}}</td>
+
     </tr>
     <tr>
 
         <td>Pin code:</td>
         <td>{{$orders -> pincode}}</td>
-        <td>Address:</td>
-        <td>{{$orders -> address}}</td>
+        <td>Address2:</td>
+        <td>{{$orders -> address2}}</td>
     </tr>
     </tbody>
 </table>

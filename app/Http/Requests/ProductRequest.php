@@ -26,7 +26,6 @@ class ProductRequest extends FormRequest
         return [
             'photo' => 'required_without:id|image|mimes:png,jpg,gif,gpeg',
             'name' => 'required|min:3',
-            'slug' => 'required|min:3',
             'description' => 'required|',
             'longdescription' => 'required|min:30',
             'active' => 'required',

@@ -62,7 +62,7 @@
                                             </a>
                                             <ul class="submenu curency" >
                                                 <li class="menu-item" >
-                                                    <a title="Pound (GBP)" href="{{route('admindashboard')}}">Dashboard</a>
+                                                    <a title="Pound (GBP)" href="{{route('admin.dashboard')}}">Dashboard</a>
                                                 </li>
                                                 <li class="menu-item" >
                                                     <a href="{{route('profile')}}"> profile </a>
@@ -99,8 +99,8 @@
                                         </li>
                                     @endif
                                 @else
-                                    <li class="menu-item"><a title="" href="{{route('registerandlogin')}}">Register</a> </li>
-                                    <li class="menu-item"><a title="" href="{{route('registerandlogin')}}">Login</a> </li>
+                                    <li class="menu-item"><a title="" href="{{route('register.and.login')}}">Register</a> </li>
+                                    <li class="menu-item"><a title="" href="{{route('register.and.login')}}">Login</a> </li>
 
                                 @endif
                             @endif
@@ -137,7 +137,7 @@
 
                     <div class="wrap-icon right-section">
                         <div class="wrap-icon-section minicart">
-                            <a href="{{route('showwishlist')}}" class="link-direction">
+                            <a href="{{route('show.wishlist')}}" class="link-direction">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                 @if(Route::has('login'))
                                     @auth
@@ -155,7 +155,7 @@
                             </a>
                         </div>
                         <div class="wrap-icon-section minicart">
-                            <a href="{{route('showcart')}}" class="link-direction">
+                            <a href="{{route('show.cart')}}" class="link-direction">
                                 <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                                 @if(Route::has('login'))
                                     @auth
@@ -205,7 +205,7 @@
                                 <a href="{{route('contact')}}" class="link-term mercado-item-title">Contact Us</a>
                             </li>
                             <li class="menu-item " >
-                                <a title="show your order" href="{{route('showcart')}}">Cart
+                                <a title="show your order" href="{{route('show.cart')}}">Cart
                                     <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow" style="color: white; background-color: red">{{\App\Models\Cart::where('user_id',Auth::id())->count()}}</span>
                                 </a>
                             </li>
@@ -242,9 +242,9 @@
                     <div class="wrap-nav horizontal-nav">
                         <ul>
                             <li class="menu-item"><a href="{{route('about')}}" class="link-term">About us</a></li>
-                            <li class="menu-item"><a href="{{route('privacy-policy')}}" class="link-term">Privacy Policy</a></li>
-                            <li class="menu-item"><a href="{{route('terms-conditions')}}" class="link-term">Terms & Conditions</a></li>
-                            <li class="menu-item"><a href="{{route('return-policy')}}" class="link-term">Return Policy</a></li>
+                            <li class="menu-item"><a href="" class="link-term">Privacy Policy</a></li>
+                            <li class="menu-item"><a href="" class="link-term">Terms & Conditions</a></li>
+                            <li class="menu-item"><a href="" class="link-term">Return Policy</a></li>
                         </ul>
                     </div>
                 </div>

@@ -19,7 +19,7 @@
 
 					<div class="card-body">
 
-						<form action="{{ route('send_contact_form') }}" method="POST" enctype="multipart/form-data">
+						<form action="{{ route('send.contact.form') }}" method="POST" enctype="multipart/form-data">
 							@csrf
 							@if ($errors->any())
 								<div class="alert alert-danger">

@@ -9,7 +9,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admindashboard')}}">Main</a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Main</a>
                                 </li>
                                 <li class="breadcrumb-item active">Proudcts
                                 </li>
@@ -42,11 +42,30 @@
                                 @include('admin.includes.alerts.success')
                                 @include('admin.includes.alerts.sweet_alert')
                                 @include('admin.includes.alerts.error')
-
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table
-                                                class="table display nowrap table-striped table-bordered scroll-horizontal">
+                                        <div style="margin-right: 18px">
+                                            <form action="{{route('admin.product')}}" method="GET" >
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label >:min price</label>
+                                                        <input type="number" name="min_price" placeholder="min price"  class="form-control" style="height: 32px;">
+                                                    </div>
+                                                    <div >
+                                                        <label >:max price</label>
+                                                        <input type="number" name="max_price" placeholder="max price"  class="form-control" style="height: 32px; width: 150px">
+
+                                                    </div>
+                                                    <div  class="col-md-2" style="margin-top: 30px">
+                                                        <button id="filter" type="submit" class="btn btn-info btn-sm">Filter</button>
+                                                        <button id="reset" class="btn btn-warning btn-sm ">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+                                        <table class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead class="">
                                             <tr style="color: white; font-size: 16px; text-align: center; background-color:#150b53  ">
                                                 <th>Id</th>
@@ -54,17 +73,12 @@
                                                 <th>Photo</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
-
                                             </tr>
                                             </thead>
                                             <tbody>
 
                                             @isset($Products)
                                                 @foreach($Products as $Product)
-                                                    @php
-                                                        $OrderItem=App\models\OrderItem::where('product_id',$Product->id)->first();
-                                                        $count= $OrderItem;
-                                                    @endphp
                                                     <tr>
                                                         <td>{{$Product -> id}}</td>
                                                         <td>{{$Product -> name}}</td>

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function addtocart( Request $request ,$id)
+    public function add_to_cart( Request $request ,$id)
 {  if (Auth::id()) {
     $product = Product::where('id', $id)->first();
 
@@ -35,31 +35,32 @@ class CartController extends Controller
     return redirect('/login')->with('errorAlert','You do not have any permission to access this page');
 }
 }
-    public function showcart(){
+    public function show_cart(){
     $cartitems=Cart::where('user_id',Auth::id())->get();
   //  $cartitems = auth()->user()->cart;
     return view('front.cart',compact('cartitems'));
 }
-    public function removefromcart($id){
+    public function remove_from_cart($id){
 
     $cart = Cart::where('product_id',$id)->first();
     $cart->delete();
     return redirect()->back()->with('success', ' item deleted successfully');
 }
-    public function updatecart(Request $request)
+    public function updateProduct(Request $request)
     {
-        $product_id = $request->product_id;
-        $quantity = $request->quantity;
+        $prod_id = $request->prod_id;
+        $prod_qty = $request->product_qty;
 
         if (Auth::check()) {
-            if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
-                $cart_item = Cart::where('product_id', $product_id)->where('user_id', Auth::id())->first();
-                $cart_item->quantity = $quantity;
+            if (Cart::where('product_id', $prod_id)->where('user_id', Auth::id())->exists()) {
+                $cart_item = Cart::where('product_id', $prod_id)->where('user_id', Auth::id())->first();
+                $cart_item->quantity = $prod_qty;
                 $cart_item->update();
                 return response()->json(['status' => 'Product Quantity Updated Successfully!']);
             }
         } else {
-            return redirect()->route('registerandlogin')->with('alert','Login To Continue');}
+            return response()->json(['status' => 'Login To Continue']);
+        }
     }
     public function cartCount()
     {

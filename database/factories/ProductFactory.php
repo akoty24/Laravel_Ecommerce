@@ -20,13 +20,12 @@ class ProductFactory extends Factory
     { $name=$this->faker->text(10);
         return [
             'name' => $name,
-            'category_id'=>rand(1,10),
+            'category_id'=>rand(2,7),
             'active'=>rand(0,1),
             'price'=>rand(200,1500),
             'photo'=>'Z092023312023digital_15.jpg',
-            'quantity'=>rand(1,30),
-            'slug'=>fake()->unique()->text(10),
-            'longdescription'=>$this->faker->text(600),
+            'quantity'=>rand(0,30),
+            'longdescription'=>$this->faker->text(300),
             'description'=>$this->faker->text(60),
             'created_at' => now(),
             'updated_at' => now(),

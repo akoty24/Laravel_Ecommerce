@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     protected $table = "products";
     protected $fillable = [
-        'name', 'slug', 'photo', 'active','longdescription','description','price','quantity', 'created_at', 'updated_at'
+        'name','photo', 'active','longdescription','description','price','quantity','category_id', 'created_at', 'updated_at'
     ];
 
 
@@ -24,7 +24,7 @@ class Product extends Model
     }
   public function scopeSelection($query)
     {
-        return $query->select('id', 'name', 'slug', 'photo', 'active','description','price');
+        return $query->select('id', 'name', 'photo', 'active','description','longdescription','quantity','category_id','price');
     }
     public function category(){
         return $this->belongsTo('App\Models\Category','category_id');

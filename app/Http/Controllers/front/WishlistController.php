@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
-    public function addtowishlist(Request $request ,$id){
+    public function add_to_wishlist(Request $request ,$id){
         if (Auth::id()){
             $user=Auth()->user();
             $product=Product::find($id);
@@ -28,11 +28,11 @@ class WishlistController extends Controller
             return redirect('/login')->with('errorAlert','You do not have any permission to access this page');
         }
     }
-    public function showwishlist(){
+    public function show_wishlist(){
         $wishlistitems=WishList::where('user_id',Auth::id())->get();
         return view('front.wishlist',compact('wishlistitems'));
     }
-    public function removewishlist( Request $request,$id){
+    public function remove_from_wishlist( Request $request,$id){
         $wishlist = WishList::where('product_id',$id)->first();
         $wishlist->delete();
         return redirect()->back()->with('alert', ' item deleted successfully');

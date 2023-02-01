@@ -17,8 +17,8 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            'product_id'=>rand(1,100),
-            'user_id'=>rand(1,30),
+            'product_id'=>rand(2,50),
+            'user_id'=>rand(1,7),
             'order_item_id'=>rand(1,100),
             'rating'=>rand(1,5),
             'comment'=>$this->faker->text(600),

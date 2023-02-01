@@ -8,7 +8,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admindashboard')}}">Main</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Main</a></li>
                                 <li class="breadcrumb-item active">Reviews</li>
 
                             </ol>
@@ -42,6 +42,22 @@
                                 @include('admin.includes.alerts.error')
 
                                 <div class="card-content collapse show">
+                                    <form action="{{route('admin.review')}}" style="margin-right: 18px" method="GET" >
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <label >:start date</label>
+                                                <input type="date"  name="start_date" placeholder="start date" value="{{date('y-m-d')}}" class="form-control" style="height: 32px">
+                                            </div>
+                                            <div >
+                                                <label >:end date</label>
+                                                <input type="date" name="end_date" value="{{date('y-m-d')}}" class="form-control" style="height: 32px">
+                                            </div>
+                                            <div  class="col-md-2" style="margin-top: 30px">
+                                                <button id="filter" type="submit" class="btn btn-info btn-sm">Filter</button>
+                                                <button id="reset" class="btn btn-warning btn-sm ">Reset</button>
+                                            </div>
+                                        </div>
+                                    </form>
 
                                     <table class="table display nowrap table-striped table-bordered scroll-horizontal" style="width: 80%">
                                         <thead class="">

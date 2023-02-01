@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    public function getLogin(){
+    public function Login_and_register_page(){
         return view('admin.auth.login');
     }
 

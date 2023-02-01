@@ -9,7 +9,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admindashboard')}}">Main</a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Main</a>
                                 </li>
                                 <li class="breadcrumb-item active"> Orders
                                 </li>
@@ -45,35 +45,42 @@
 
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                       <div>
+
                                            <form action="{{route('admin.order')}}" method="GET" >
                                                <div class="row">
                                                    <div class="col-md-2">
                                                        <label >:start date</label>
-                                                       <input type="date"  name="start_date" placeholder="start date" value="{{date('y-m-d')}}" class="form-control" style="height: 40px">
+                                                       <input type="date"  name="start_date" placeholder="start date" value="{{date('y-m-d')}}" class="form-control" style="height: 32px">
                                                    </div>
                                                    <div >
                                                        <label >:end date</label>
-                                                       <input type="date" name="end_date" value="{{date('y-m-d')}}" class="form-control" style="height: 40px">
-                                                   </div>
-
-                                                   <div class="col-md-2">
-                                                       <label >:min price</label>
-                                                       <input type="number" name="min_price" placeholder="min price"  class="form-control" style="height: 40px">
-                                                   </div>
-                                                   <div >
-                                                       <label >:max price</label>
-                                                       <input type="number" name="max_price" placeholder="max price"  class="form-control" style="height: 40px">
-
+                                                       <input type="date" name="end_date" value="{{date('y-m-d')}}" class="form-control" style="height: 32px">
                                                    </div>
                                                    <div  class="col-md-2" style="margin-top: 30px">
-                                                       <button id="filter" type="submit" class="btn btn-info">Filter</button>
-                                                       <button id="reset" class="btn btn-warning ">Reset</button>
+                                                       <button id="filter" type="submit" class="btn btn-info btn-sm">Filter</button>
+                                                       <button id="reset" class="btn btn-warning btn-sm ">Reset</button>
                                                    </div>
                                                </div>
                                            </form>
 
+                                           <form action="{{route('admin.order')}}" method="GET" >
+                                               <div class="row">
+                                           <div class="col-md-2">
+                                               <label >:min price</label>
+                                               <input type="number" name="min_price" placeholder="min price"  class="form-control" style="height: 32px;">
+                                           </div>
+                                           <div >
+                                               <label >:max price</label>
+                                               <input type="number" name="max_price" placeholder="max price"  class="form-control" style="height: 32px; width: 150px">
+
+                                           </div>
+                                           <div  class="col-md-2" style="margin-top: 30px">
+                                               <button id="filter" type="submit" class="btn btn-info btn-sm">Filter</button>
+                                               <button id="reset" class="btn btn-warning btn-sm ">Reset</button>
+                                           </div>
                                        </div>
+                                           </form>
+
                                         <table class="table display nowrap table-striped table-bordered scroll-horizontal">
 
                                             <thead class="">
@@ -115,13 +122,12 @@
                                             </tbody>
                                         </table>
                                         <div class="justify-content-center d-flex">
-
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </section>
             </div>
         </div>

@@ -9,7 +9,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admindashboard')}}">Main</a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Main</a>
                                 </li>
                                 <li class="breadcrumb-item active"> Categories
                                 </li>
@@ -88,8 +88,6 @@
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">edit</a>
                                                                 <a href="{{route('admin.category.delete',$category->id)}}"
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">delete</a>
-
-
                                                             </div>
                                                         </td>
                                                     </tr>

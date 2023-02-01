@@ -24,7 +24,7 @@
 						@else
 							<h1 class="shop-title">all products</h1>
 						@endif
-						<div class="wrap-right">
+{{--						<div class="wrap-right">
 
 							<div class="sort-item orderby ">
 								<select name="orderby" class="use-chosen">
@@ -47,13 +47,12 @@
 								</select>
 							</div>
 
-							{{--						<div class="change-display-mode">--}}
-							{{--							<a href="#" class="grid-mode display-mode active"><i class="fa fa-th"></i>Grid</a>--}}
-							{{--							<a href="{{route('list')}}" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>--}}
-							{{--						</div>--}}
+													<div class="change-display-mode">
+														<a href="#" class="grid-mode display-mode active"><i class="fa fa-th"></i>Grid</a>
+														<a href="{{route('list')}}" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>
+													</div>
 
-						</div>
-
+					</div>--}}
 					</div><!--end wrap shop control-->
 
 					<div class="row">
@@ -64,12 +63,12 @@
 									<div class="product product-style-3 equal-elem ">
 										<div class="product-thumnail">
 											@if($product->quantity>1)
-												<a href="{{route('detail_product',$product->id)}}"
+												<a href="{{route('product.detail',$product->id)}}"
 												   title="{{$product->description}}">
 													<figure><img src="{{url('front/photos/product/'.$product->photo)}}"
 																 alt="{{$product->description}}"></figure>
 													@else
-														<a href="{{route('detail_product',$product->id)}}"
+														<a href="{{route('product.detail',$product->id)}}"
 														   title="{{$product->description}}">
 															<figure><img
 																		src="{{url('front/photos/product/'.$product->photo)}}"
@@ -82,7 +81,7 @@
 											@endif
 										</div>
 										<div class="product-info">
-											<a href="{{route('detail_product',$product->id)}}"
+											<a href="{{route('product.detail',$product->id)}}"
 											   class="product-name"><span>{{$product->name}}</span></a>
 											<style>
 												.color-gray {
@@ -122,7 +121,7 @@
 											<span>{{$product->description}}</span>
 											<div class="wrap-price"><span
 														class="product-price">${{$product->price}}</span></div>
-											<form action="{{route('addtocart',$product->id)}}" method="POST">
+											<form action="{{route('add.to.cart',$product->id)}}" method="POST">
 												@csrf
 												<div class="quantity">
 													<span>Quantity:</span>
@@ -243,7 +242,7 @@
 									<li class="product-item">
 										<div class="product product-widget-style">
 											<div class="thumbnnail">
-												<a href="{{route('detail_product',$popular_product->id)}}"
+												<a href="{{route('product.detail',$popular_product->id)}}"
 												   title="{{$popular_product->name}}">
 													<figure><img
 																src="{{url('front/photos/product/'.$popular_product->photo)}}"
@@ -251,7 +250,7 @@
 												</a>
 											</div>
 											<div class="product-info">
-												<a href="{{route('detail_product',$popular_product->id)}}"
+												<a href="{{route('product.detail',$popular_product->id)}}"
 												   class="product-name"><span>{{$popular_product->name}}</span></a>
 												@if(App\models\Review::where('product_id',$popular_product->id)->first())
 													@php

@@ -17,10 +17,7 @@
                                                     <span style="color:red;"> {{$order_item->products->name}}</span>
                                                 </a>
                                             </h3><br>
-                                            @include('admin.includes.alerts.alert')
-                                            @include('admin.includes.alerts.success')
-                                            @include('admin.includes.alerts.sweet_alert')
-                                            @include('admin.includes.alerts.error')
+
                                             <div id="comments">
                                                 <ol class="commentlist">
                                                     <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1"

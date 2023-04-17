@@ -1,9 +1,6 @@
 @extends('front.layouts.app');
 @section('contant')
-	@include('admin.includes.alerts.alert')
-	@include('admin.includes.alerts.success')
-	@include('admin.includes.alerts.sweet_alert')
-	@include('admin.includes.alerts.error')
+
 
 	@php
 		$total = 0;

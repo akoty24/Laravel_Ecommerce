@@ -24,7 +24,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            //'photo' => 'required',
+            'photo'=> 'required_without:id|image|mimes:png,jpg,gif,gpeg',
             'name' => 'required|min:3',
             'lname' => 'required|min:3',
             'email'=> 'email|required',

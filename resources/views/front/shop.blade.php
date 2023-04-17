@@ -1,9 +1,6 @@
 @extends('front.layouts.app');
 @section('contant')
-	@include('admin.includes.alerts.alert')
-	@include('admin.includes.alerts.success')
-	@include('admin.includes.alerts.sweet_alert')
-	@include('admin.includes.alerts.error')
+
 
 	<!--main area-->
 	<main id="main" class="main-site left-sidebar">

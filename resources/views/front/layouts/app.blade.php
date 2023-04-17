@@ -16,7 +16,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/chosen.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/color-01.css')}}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@yield('style')
 </head>
 <body class="home-page home-01">
 
@@ -236,7 +238,7 @@
         <div class="coppy-right-box">
             <div class="container">
                 <div class="coppy-right-item item-left">
-                    <p class="coppy-right-text">Copyright © 2020 Surfside Media. All rights reserved</p>
+                    <p class="coppy-right-text">Copyright © 2020 Mohamed Saber. All rights reserved</p>
                 </div>
                 <div class="coppy-right-item item-right">
                     <div class="wrap-nav horizontal-nav">
@@ -253,7 +255,6 @@
         </div>
     </div>
 </footer>
-
 <script src="{{asset('assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4')}}"></script>
 <script src="{{asset('assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4')}}"></script>
 <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
@@ -265,7 +266,27 @@
 <script src="{{asset('assets/js/functions.js')}}"></script>
 <script src="{{asset('assets/js/checkout.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@if(Session::has('message'))
+    <script>
+        swal("Message!","{{Session::get('message')}}",{button:"OK"})
+    </script>
+@endif
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(Session::has('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '{{Session::get('success')}}',
+            showConfirmButton: false,
+            timer: 1500});
+    </script>
+@endif
 @yield('custom-js')
+@yield('script')
+
 
 </body>
 </html>

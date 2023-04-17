@@ -1,9 +1,6 @@
 @extends('front.layouts.app');
 @section('contant')
-@include('admin.includes.alerts.alert')
-@include('admin.includes.alerts.success')
-@include('admin.includes.alerts.sweet_alert')
-@include('admin.includes.alerts.error')
+
 <!--main area-->
 <main id="main" class="main-site left-sidebar">
 	<div class="container">
@@ -32,19 +29,19 @@
 							@endif
 							<div class="form-group">
 								<label for="title">Fname </label>
-								<input type="text"  name="fname" class="form-control" placeholder="enter your frist name" style="font-size: 13px; line-height: 19px; display: inline-block; height: 43px; padding: 2px 20px;  max-width: 500px;   width: 100%; border: 1px solid #e6e6e6;"  >
+								<input type="text"  name="fname" class="form-control" placeholder="enter your frist name" style="font-size: 13px; line-height: 19px;  height: 43px; padding: 2px 20px;  max-width: 500px;   width: 100%; border: 1px solid #e6e6e6;"  >
 							</div>
 							<div class="form-group">
 								<label for="title">Lname </label>
-								<input type="text"  name="lname" class="form-control" placeholder="enter your last name" style="font-size: 13px; line-height: 19px; display: inline-block; height: 43px; padding: 2px 20px;  max-width: 500px;   width: 100%; border: 1px solid #e6e6e6;" >
+								<input type="text"  name="lname" class="form-control" placeholder="enter your last name" style="font-size: 13px; line-height: 19px;  height: 43px; padding: 2px 20px;  max-width: 500px;   width: 100%; border: 1px solid #e6e6e6;" >
 							</div>
 							<div class="form-group">
 								<label for="title">Email </label>
-								<input type="email"  name="email" class="form-control" placeholder="enter your email" style="font-size: 13px; line-height: 19px; display: inline-block; height: 43px; padding: 2px 20px;  max-width: 500px;   width: 100%; border: 1px solid #e6e6e6;" >
+								<input type="email"  name="email" class="form-control" placeholder="enter your email" style="font-size: 13px; line-height: 19px;  height: 43px; padding: 2px 20px;  max-width: 500px;   width: 100%; border: 1px solid #e6e6e6;" >
 							</div>
 							<div class="form-group">
 								<label for="title">subject </label>
-								<input type="text"  name="subject" class="form-control"  placeholder="enter your subject" style="font-size: 13px; line-height: 19px; display: inline-block; height: 43px; padding: 2px 20px;  max-width: 500px;   width: 100%; border: 1px solid #e6e6e6;" >
+								<input type="text"  name="subject" class="form-control"  placeholder="enter your subject" style="font-size: 13px; line-height: 19px;  height: 43px; padding: 2px 20px;  max-width: 500px;   width: 100%; border: 1px solid #e6e6e6;" >
 							</div>
 							<div class="form-group">
 								<label for="title">Message </label>

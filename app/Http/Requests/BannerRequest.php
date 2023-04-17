@@ -24,10 +24,10 @@ class BannerRequest extends FormRequest
     public function rules()
     {
         return [
-            //'photo1' => 'required',
+            'photo1'=> 'required_without:id|image|mimes:png,jpg,gif,gpeg',
             'title1' => 'required|min:3',
             'description1' => 'required|min:5',
-            //'photo2' => 'required',
+            'photo2'=> 'required_without:id|image|mimes:png,jpg,gif,gpeg',
             'title2' => 'required|min:3',
             'description2' => 'required|min:5',
         ];

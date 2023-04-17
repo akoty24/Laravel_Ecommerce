@@ -18,7 +18,7 @@ class AuthUser
     {
 
         if(empty(session('user'))){
-            return redirect()->route('loginandregister');
+            return redirect()->route('register.and.login');
         }
         else{
             return $next($request);

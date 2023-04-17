@@ -15,17 +15,17 @@ class WishlistController extends Controller
             $user=Auth()->user();
             $product=Product::find($id);
             if(WishList::where('product_id',$product->id)->where('user_id',$user->id)->exists()){
-                return redirect()->back()->with('alert','item  already exist in the WishList');
+                return redirect()->back()->with('message','item  already exist in the WishList');
             }
             else{
                 $wishList=new WishList();
                 $wishList->user_id=$user->id;
                 $wishList->product_id=$product->id;
                 $wishList->save();}
-            return redirect()->back()->with('alert',' item added successfully');
+            return redirect()->back()->with('success',' item added successfully');
         }
         else{
-            return redirect('/login')->with('errorAlert','You do not have any permission to access this page');
+            return redirect('/login')->with('message','You do not have any permission to access this page');
         }
     }
     public function show_wishlist(){
@@ -35,7 +35,7 @@ class WishlistController extends Controller
     public function remove_from_wishlist( Request $request,$id){
         $wishlist = WishList::where('product_id',$id)->first();
         $wishlist->delete();
-        return redirect()->back()->with('alert', ' item deleted successfully');
+        return redirect()->back()->with('success', ' item deleted successfully');
     }
 
 }

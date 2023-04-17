@@ -1,10 +1,5 @@
 @extends('front.layouts.app');
 @section('contant');
-@include('admin.includes.alerts.alert')
-@include('admin.includes.alerts.success')
-@include('admin.includes.alerts.sweet_alert')
-@include('admin.includes.alerts.error')
-
 <main id="main">
 	<div class="container">
 		<!--MAIN SLIDE-->
@@ -42,7 +37,7 @@
 					<div class="tab-control">
 						@isset($categories)
 							@foreach($categories as $category)
-								<a href="#fashion_1a" class="tab-control-item category">{{$category->name}}</a>
+								<a href="{{route('index',['category'=>$category->id])}}"  data-toggle="modal"  class="tab-control-item category">{{$category->name}}</a>
 							@endforeach
 						@endisset
 					</div>
@@ -94,11 +89,11 @@
 					<div class="tab-contents">
 						<div class="tab-content-item active" id="digital_1a">
 							<div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container" data-items="" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}' >
-								@isset($products);
-								@foreach($products as $product)
+								@isset($productsss)
+								@foreach($productsss as $product)
 									<div class="product product-style-2 equal-elem ">
 										<div class="product-thumnail">
-											<a href="{{route('product.detail',$product->id)}}" title="{{$product->name}}">
+											<a href="" title="{{$product->name}}">
 												<figure><img src="{{ url('front/photos/product/'.$product->photo)}}" alt="{{$product->name}}"></figure>
 											</a>
 											<div class="group-flash">
@@ -125,6 +120,5 @@
 
 
 	</div>
-
 </main>
 @endsection

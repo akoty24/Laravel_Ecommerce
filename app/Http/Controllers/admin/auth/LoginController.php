@@ -17,16 +17,14 @@ class LoginController extends Controller
 
 
 public  function Login(LoginRequest $request) {
-    if (auth()->attempt(['email' => $request->email,'password' => $request->password])) {
-        return redirect()->route('index');
-
+    if (auth()->attempt(['email' => $request->email,'password' => $request->password,'role'=>'USR'])) {
+        return redirect()->route('index')->with('success','login success');
+    }elseif (auth()->attempt(['email' => $request->email,'password' => $request->password,'role'=>'ADM'])) {
+        return redirect()->route('admin.dashboard')->with('success','login success');
     }
     else{
-        return redirect()->back()->with('fail','email or passwor error');
-
-    }
+        return redirect()->back()->with('message','email or password error');
     }
 
-
-
+    }
 }

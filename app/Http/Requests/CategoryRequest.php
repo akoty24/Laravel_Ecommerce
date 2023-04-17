@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class CategoryRequest extends FormRequest
 {
@@ -22,10 +24,23 @@ class CategoryRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {  return [
+    {
+        return [
         'name' => 'required|min:3',
         'slug' => 'required|min:3',
+        'photo'=> 'required_without:id',
         'active' => 'required',
     ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+
+        throw new HttpResponseException(response()->json([
+            'success'   => false,
+            'message'   => 'Validation errors',
+            'data'      => $validator->errors()
+        ]));
+
     }
 }

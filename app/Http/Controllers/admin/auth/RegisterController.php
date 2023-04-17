@@ -12,19 +12,18 @@ use Illuminate\Support\Facades\Validator;
 class RegisterController extends Controller
 
 {
-
     protected function Register(RegisterRequest $request)
     {
         $data = User::create([
-        'name' => $request->name,
+            'name' => $request->name,
             'lname' => $request->lname,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'password' => bcrypt($request->password)
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => bcrypt($request->password)
     ]);
-        auth()->loginUsingId($data->id);
 
-        return view('index');
+        auth()->login($data);
+        return view('index')->with('success','sign up success');;
     }
 
     public function logout()

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable ;
 protected $table = 'users';
     /**
      * The attributes that are mass assignable.
@@ -33,7 +34,6 @@ protected $table = 'users';
         'role',
         'active'
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -43,6 +43,13 @@ protected $table = 'users';
         'password',
         'remember_token',
     ];
+    public function getJWTIdentifier() {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims() {
+        return [];
+    }
+
     public function getActive()
     {
         return $this->active == 1 ? 'Active' : 'InActive';
@@ -51,7 +58,6 @@ protected $table = 'users';
     {
         return $query->where('active', 1);
     }
-
     public function scopeSelection($query)
     {
         return $query->select('id', 'name','lname','address','address2', 'city','country','pincode','photo', 'email','password', 'phone','role','active');
@@ -69,7 +75,6 @@ protected $table = 'users';
     {
         return $this->belongsToMany(Product::class, 'wish_lists')->withTimestamps();
     }
-
     public function wishlistHas($productId)
     {
         return self::wishlist()->where('product_id', $productId)->exists();

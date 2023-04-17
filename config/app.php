@@ -197,7 +197,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
-
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
     ],
 
@@ -215,8 +215,9 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
 
     ])->toArray(),
 

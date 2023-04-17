@@ -16,10 +16,10 @@ class AuthAdmin
             if($request->user()->role=='ADM'){
                 return $next($request);
             }else{
-               return redirect('/login')->with('You do not have any permission to access this page');
+               return redirect('/login')->with('success','You do not have any permission to access this page');
             }
         } else {
-            return redirect('/login')->with('login to access the website info');
+            return redirect('/login')->with('success','login to access the website info');
         }
         return $next($request);
     }

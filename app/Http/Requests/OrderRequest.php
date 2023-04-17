@@ -32,6 +32,8 @@ class OrderRequest extends FormRequest
             'city'=>'required',
             'country'=>'required',
             'pincode'=>'required',
+            'payment-method'=>'required',
         ];
-    }
+
+}
 }

@@ -32,13 +32,22 @@ class IndexController extends Controller
         return view('admin.user.editprofile',compact('user'));
     }
     public function update_profile($id,Request $request){
-
+        $request->validate([
+            'photo'=> 'image|mimes:png,jpg,gif,gpeg',
+            'name' => 'required|min:3',
+            'lname' => 'required|min:3',
+            'phone'=>'required' ,
+            'address' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'pincode' => 'required',
+]);
         $user= User::find($id);
         if(!$user){
-            return redirect()->back()->with(['error' => 'profile not found']);
+            return redirect()->back()->with(['message' => 'profile not found']);
         }
         if ($request->hasFile('photo')) {
-            $path = 'front/photos/user/' . $user->photo;
+            $path = 'front/photos/user/'.$user->photo;
             if (file_exists($path)) {
                 unlink($path);
             }
@@ -48,14 +57,16 @@ class IndexController extends Controller
             $file->move(public_path('front/photos/user/'), $filename);
             $user->photo = $filename;
         }
-
-        $user->name = $request->name;
-        $user->lname = $request->lname;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->address = $request->address;
+        $user->name=$request->name;
+        $user->lname=$request->lname;
+        $user->phone=$request->phone;
+        $user->address=$request->address;
+        $user->address2=$request->address2;
+        $user->country=$request->country;
+        $user->city=$request->city;
+        $user->pincode=$request->pincode;
         $user->update();
-        return redirect()->route('profile')->with(['alert' => 'profile updated successfully']);
+        return redirect()->route('profile')->with(['success' => 'profile updated successfully']);
 
 
     }

@@ -30,9 +30,9 @@ class CartController extends Controller
         ];
         Cart::create($data);
     }
-    return redirect()->back()->with('alert', ' item added successfully');
+    return redirect()->back()->with('success', ' item added successfully');
 }else{
-    return redirect('/login')->with('errorAlert','You do not have any permission to access this page');
+    return redirect('/login')->with('message','You do not have any permission to access this page');
 }
 }
     public function show_cart(){
@@ -56,10 +56,10 @@ class CartController extends Controller
                 $cart_item = Cart::where('product_id', $prod_id)->where('user_id', Auth::id())->first();
                 $cart_item->quantity = $prod_qty;
                 $cart_item->update();
-                return response()->json(['status' => 'Product Quantity Updated Successfully!']);
+                return response()->json(['success' => 'Product Quantity Updated Successfully!']);
             }
         } else {
-            return response()->json(['status' => 'Login To Continue']);
+            return response()->json(['message' => 'Login To Continue']);
         }
     }
     public function cartCount()

@@ -29,7 +29,9 @@ Route::group(['prefix' => 'Auth'], function (){
     Route::get('login',[LoginController::class,'Login_and_register_page'])->name('register.and.login');
     Route::post('login',[LoginController::class,'Login'])->name('login');
     Route::post('register',[RegisterController::class, 'Register'])->name('register');
-    Route::get('logout',[RegisterController::class,'logout'])->name('logout');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('logout', [RegisterController::class, 'logout'])->name('logout');
+    });
 });
 // Admin Routes
 Route::middleware(['auth','auth.admin'])->group(callback: function () {
@@ -150,9 +152,10 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'checkout'], function (){
         Route::get('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
         Route::post('/place_order', [CheckoutController::class,'place_order'])->name('place.order');
-        // Route::get('/paypalprocess', [CheckoutController::class,'paypalprocess'])->name('paypalprocess');
-        // Route::get('/cancel', [CheckoutController::class,'cancel'])->name('cancel');
-        // Route::get('/success', [CheckoutController::class,'success'])->name('success');
+
+        Route::get('/payment_form', [CheckoutController::class,'payment_form'])->name('payment.form');
+        Route::post('stripe', [CheckoutController::class,'stripePost'])->name('stripe.post');
+
     });
     //order
     Route::group(['prefix' => 'order'], function () {

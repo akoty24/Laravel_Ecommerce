@@ -25,6 +25,7 @@ class FrontendController extends Controller
         $Slider = Slider::get();
         //
         $cat = $request->get('category') ?? null;
+
         $products = new Product();
         if ($cat){
 
@@ -32,11 +33,11 @@ class FrontendController extends Controller
             $products = $products->where('category_id' , (int)$category?->id);
         }
         $products = $products->inRandomOrder()->paginate(6)->withQueryString();
-        $categories= Category::paginate(6);
-      //  $products = $products->orderBy('id', 'DESC')->paginate(env('LIMIT'))->withQueryString();
+        $categories= Category::paginate(10);
+        $productss = new Product();
+        $productsss = $productss->orderBy('id', 'DESC')->paginate(env('LIMIT'))->withQueryString();
 
-        return view('index',['Slider'=>$Slider,'categories'=>$categories ,'products'=>$products,'banners'=>$banners
-        ]);
+        return view('index',['Slider'=>$Slider,'categories'=>$categories ,'products'=>$products,'banners'=>$banners,'productsss'=>$productsss]);
     }
     public function search(Request $request){
 
@@ -67,6 +68,7 @@ class FrontendController extends Controller
     }
     public function shop(Request $request){
         $cat = $request->get('category') ?? null;
+
         $products = new Product();
         if ($cat){
             $category = Category::where('id' , $cat)->first();
@@ -104,13 +106,13 @@ class FrontendController extends Controller
         try {
             $orders = Order::find($id);
             if (!$orders)
-                return redirect()->route('user.order')->with(['error' => 'order not found ']);
+                return redirect()->route('user.order')->with(['message' => 'order not found ']);
             $status =  $orders -> status  == 1 ? 0 : 1;
             $orders -> update(['status' =>$status ]);
             return redirect()->route('user.order')->with(['success' => ' order cancel successfully ']);
 
         } catch (\Exception $ex) {
-            return redirect()->route('user.order')->with(['error' => 'error try again']);
+            return redirect()->route('user.order')->with(['message' => 'error try again']);
         }
 
     }
@@ -127,7 +129,7 @@ class FrontendController extends Controller
         $reviews->user_id=Auth::user()->id ;
         $reviews->order_item_id=$request->input('order_item_id');
         $reviews->save();
-        return redirect()->back()->with(['alert' =>'your review has been added successfully']);
+        return redirect()->back()->with(['success' =>'your review has been added successfully']);
 
     }
     public function add_review($id){
@@ -156,10 +158,8 @@ class FrontendController extends Controller
 //            'phone'=>$request->phone,
 //            'comment'=>$request->comment,
 //        ];
-        Message::create($request->all());
-        //  Mail::to('akotysaber24@gmail.com')->send(new VisitorContact($data));
-        //  Mail::to('akotysaber24@gmail.com')->send(new VisitorContact($request->all()));
-        Mail::to('akotysaber24@gmail.com')->send(new VisitorContact($validatedData));
-        return back()->with('alert','your message send successfully,We Will Get Back To You Soon!');
+       $data= Message::create($validatedData);
+        Mail::to($data->email)->send(new VisitorContact($data));
+        return back()->with('message','your message send successfully,We Will Get Back To You Soon!');
     }
 }
